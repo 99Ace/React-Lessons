@@ -1,0 +1,68 @@
+import React from 'react';
+import './App.css';
+import Menu from './Restaurant/pages/Menu'
+import Home from './Restaurant/pages/Home'
+import Booking from './Restaurant/pages/Booking.js'
+import Confirmation from './Restaurant/pages/Confirmation'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+} from "react-router-dom";
+
+export default class App extends React.Component {
+  state = {
+    booking : {
+      name : '',
+      email: '',
+      gender:'',
+    }
+  }
+  //set time out function
+  bookIt=(settings)=>{
+    this.setState ({
+      name : settings.name,
+      email : settings.email,
+      gender : settings.gender,
+    })
+  }
+  
+
+  render () {
+    return (
+      <div style={{ backgroundColor : 'lightblue', height:'100vh', 
+                    padding:'10px',textAlign:'center'}}>
+      <Router>
+        <Menu/>
+        <Switch> 
+      
+          <Route path='/booking' render={
+            (props) => <Booking {...props} confirmBooking={this.bookIt}/>
+          }> 
+          </Route>
+        
+          <Route path='/confirmation' 
+            render = {
+            (props) => <Confirmation {...props} bookingDetail={
+                {
+                  name : this.state.name,
+                  email : this.state.email,
+                  gender : this.state.gender,
+                }
+            }/>
+            }>
+            
+          </Route>
+          
+          <Route path="/"> 
+            <Home/>
+          </Route>
+        </Switch>
+      </Router>
+      </div>
+    )
+  }
+}
+
+

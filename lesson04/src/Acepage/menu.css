@@ -1,0 +1,14 @@
+.navbar {
+    background-color: black;
+    color: white;
+}
+.navbar li {
+    display: inline-block;
+    margin : 1%;
+    padding : 5%;
+    font-family: cursive;
+    font-size: 1.5rem;
+}
+.navbar li a {
+    color : white;
+}
