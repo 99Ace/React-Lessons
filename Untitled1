@@ -1,0 +1,65 @@
+import React from 'react';
+import './App.css';
+import 'bulma/css/bulma.css'
+import axios from "axios"
+import Viewlist from './todoList/Viewlist'
+import Home from './todoList/Home'
+
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Link,
+} from "react-router-dom";
+
+export default class App extends React.Component {
+  state = {
+    tasks : [
+      {
+        _id: 1,
+        title: 'Clean the room',
+        done:false
+      },
+      {
+        _id: 2,
+        title: 'Wash the clothes',
+        done:false
+      },
+      {
+        _id: 3,
+        title: 'Buy fruits',
+        done: true
+      }
+    ],
+  }
+  displayList () {
+    let dataList = this.state.tasks.map((task)=>{
+      return <li> {task.title} - {task.done ? 'Done' : 'Not Done' } </li>
+    })
+    return dataList
+  }
+ 
+  render () {
+    return (
+      <div style={{ backgroundColor : 'lightblue', height:'100vh', 
+                    padding:'10px',textAlign:'center'}}>
+        <Router>
+          || <Link exact to="/"> Home </Link> ||
+          <Link exact to='/summary'> Summary of Listing </Link> ||
+          
+          <Switch> 
+            <Route path="/summary"> 
+              <Viewlist data = {this.displayList()}/>
+            </Route>
+            
+            <Route path='/'> 
+              <Home/>
+            </Route>
+          </Switch>
+        </Router>
+      </div>
+    )
+  }
+}
+
+
